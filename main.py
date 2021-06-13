@@ -12,11 +12,6 @@ from time import sleep
 import ctypes
 import datetime
 
-# Database Source: http://addresses.loyce.club/?C=M;O=D
-
-# Script #1: https://github.com/Py-Project/Bitcoin-wallet-cracker
-# Script #2: https://github.com/Anarbb/BitGen
-
 class Settings():
     resultsPath = 'results'
     databaseFile = 'resources/_database_5to1.txt'
