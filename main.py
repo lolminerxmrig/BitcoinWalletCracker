@@ -34,7 +34,7 @@ def makeDir():
 lock = threading.Lock()
 
 datetime_timestamp = datetime.datetime.now()
-start_time = datetime_timestamp.strftime("%d.%m.%y %H:%M")
+start_time = datetime_timestamp.strftime("%d.%m.%y, %H:%M")
 
 def bip39(mnemonic_words):
     mobj = mnemonic.Mnemonic("english")
@@ -70,7 +70,7 @@ def check():
             Settings.checksMadeCounter += 1
 
             current_timestamp = datetime.datetime.now()
-            event_time = current_timestamp.strftime("%d.%m.%y %H:%M:%S")
+            event_time = current_timestamp.strftime("%d.%m.%y, %H:%M:%S")
 
             run_time = str(current_timestamp-datetime_timestamp);
 
@@ -78,14 +78,14 @@ def check():
                 Settings.walletsWithBalance += 1
 
                 print(
-                    f'{event_time} -> Address: {address} | Balance: Found | Phrase: {mnemonic_words}')
+                    f'\n[FOUND]\n{Settings.checksMadeCounter}. [ {event_time} ] Address: {address} | Phrase: {mnemonic_words}\n')
 
                 with open(Settings.walletsWithBalanceFile, 'a') as a:
                     a.write(
-                        f'{event_time} -> Address: {address} | Phrase: {mnemonic_words}\n')
+                        f'{Settings.checksMadeCounter}. [ {event_time} ] Address: {address} | Phrase: {mnemonic_words}\n')
             else:
                 print(
-                    f'{event_time} -> Address: {address} | Balance: Not Found | Phrase: {mnemonic_words}')
+                    f'{Settings.checksMadeCounter}. [ {event_time} ] Address: {address} | Phrase: {mnemonic_words}')
 
 
             if os.name == 'nt':
