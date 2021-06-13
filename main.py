@@ -21,9 +21,10 @@ class Settings():
     resultsPath = 'results'
     databaseFile = 'resources/_database_5to1.txt'
     seedsFile = 'resources/_seeds-BIP0039.txt'
+    countersFile = 'results/_counters.txt'
     checksMadeCounter = 0
     walletsWithBalance = 0
-    walletsWithoutBalance = 0
+    walletsWithBalanceFile = 'results/_wallets_found.txt'
 
 
 def makeDir():
@@ -53,8 +54,8 @@ def bip39(mnemonic_words):
 
 def addressInDB(addr):
     with open(Settings.databaseFile) as f:
-        adresses = f.read().split()
-    return addr in adresses
+        addresses = f.read().split()
+    return addr in addresses
 
 
 def check():
@@ -79,22 +80,20 @@ def check():
                 print(
                     f'{event_time} -> Address: {address} | Balance: Found | Phrase: {mnemonic_words}')
 
-                with open("results/_wallets_found.txt", "a") as w:
-                    w.write(
-                        f'{event_time} -> Address: {address}, phrase: {mnemonic_words}\n\n')
+                with open(Settings.walletsWithBalanceFile, 'a') as a:
+                    a.write(
+                        f'{event_time} -> Address: {address} | Phrase: {mnemonic_words}\n')
             else:
-                Settings.walletsWithoutBalance += 1
-
                 print(
                     f'{event_time} -> Address: {address} | Balance: Not Found | Phrase: {mnemonic_words}')
 
-                # with open("results/_wallets_empty.txt", "a") as w:
-                #     w.write(
-                #         f'{event_time} -> Address: {address}, phrase: {mnemonic_words}\n\n')
 
-
-            ctypes.windll.kernel32.SetConsoleTitleW(
-                f"{Settings.walletsWithBalance} / {Settings.checksMadeCounter} | {run_time} | {start_time}")
+            if os.name == 'nt':
+                ctypes.windll.kernel32.SetConsoleTitleW(
+                    f"{Settings.walletsWithBalance} / {Settings.checksMadeCounter} | {run_time} | {start_time}")
+            else:
+                terminal_title = run_time + " | " + start_time
+                print(f'\33]0;{terminal_title}\a', end='', flush=True)
 
 
 def start():
