@@ -32,7 +32,7 @@ datetime_timestamp = datetime.datetime.now()
 start_time = datetime_timestamp.strftime("%d.%m.%y, %H:%M")
 
 def bip39(mnemonic_words):
-    mobj = mnemonic.Mnemonic("english")
+    mobj = mnemonic.Mnemonic('english')
     seed = mobj.to_seed(mnemonic_words)
 
     bip32_root_key_obj = bip32utils.BIP32Key.fromEntropy(seed)
@@ -85,9 +85,9 @@ def check():
 
             if os.name == 'nt':
                 ctypes.windll.kernel32.SetConsoleTitleW(
-                    f"{Settings.walletsWithBalance} / {Settings.checksMadeCounter} | {run_time} | {start_time}")
+                    f'{Settings.walletsWithBalance} / {Settings.checksMadeCounter} | {run_time} | {start_time}')
             else:
-                terminal_title = run_time + " | " + start_time
+                terminal_title = run_time + ' | ' + start_time
                 print(f'\33]0;{terminal_title}\a', end='', flush=True)
 
 
