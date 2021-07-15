@@ -14,17 +14,17 @@ import datetime
 
 class Settings():
     resultsPath = 'results'
-    databaseFile = 'resources/_database_5to1.txt'
-    seedsFile = 'resources/_seeds-BIP0039.txt'
-    countersFile = 'results/_counters.txt'
+    databaseFile = 'resources/database_5to1.txt'
+    seedsFile = 'resources/seeds_BIP0039.txt'
     checksMadeCounter = 0
     walletsWithBalance = 0
-    walletsWithBalanceFile = 'results/_wallets_found.txt'
+    walletsWithBalanceFile = 'results/wallets.txt'
 
 
 def makeDir():
     if not os.path.exists(Settings.resultsPath):
         os.makedirs(Settings.resultsPath)
+
 
 lock = threading.Lock()
 
@@ -48,16 +48,11 @@ def bip39(mnemonic_words):
 
 
 def addressInDB(addr):
-    with open(Settings.databaseFile) as f:
-        addresses = f.read().split()
     return addr in addresses
 
 
 def check():
     while True:
-        with open(Settings.seedsFile) as f:
-            dictionary = [l.strip() for l in f.readlines()]
-
         mnemonic_words = Bip39Gen(dictionary).mnemonic
         address = bip39(mnemonic_words)
     
@@ -103,4 +98,11 @@ def start():
 
 if __name__ == '__main__':
     makeDir()
+
+    with open(Settings.seedsFile) as f:
+        dictionary = [l.strip() for l in f.readlines()]
+
+    with open(Settings.databaseFile) as f:
+        addresses = f.read().split()
+
     start()
