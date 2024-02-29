@@ -1,7 +1,7 @@
 ### A Pluto.jl notebook ###
 # v0.19.28
 # Welcome to your R reactive notebook.# ╔═╡ c1c4e7f6-d6ea-11ee-13ce-b9668f14bd29
-
+!lscpu
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 '
@@ -580,6 +580,8 @@ version = "17.4.0+0"
 
 # ╔═╡ 00000000-0000-0000-0000-000000000003
 PLUTO_CONDAPKG_TOML_CONTENTS = """
+channels = ["conda-forge", "file:///home/jolin_user/.conda/channel"]
+
 [deps]
 r = ""
 r-base = ""
